@@ -52,10 +52,13 @@ export const getMeController = async (req, res, next) => {
     });
   }
 
-  if(user.tokenTimeout < Date.now() - user.createdAt) {
-    
-  }
+  const timeSpent = new Date().getTime() - user.createdAt.getTime();
 
+
+  console.log(user.tokenTimeout , timeSpent);
+  if(user.tokenTimeout < timeSpent) {
+  }
+ 
   req.user = user;
 
   return res.status(200).json({

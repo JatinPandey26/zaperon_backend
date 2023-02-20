@@ -10,8 +10,8 @@ const UserSchema = new mongoose.Schema({
   tokenTimeout: { type: Number, default: 1 * 24 * 60 * 60 * 1000 },
 });
 
-UserSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) return next();
+UserSchema.pre("save", async function (next) { 
+  if (!this.isModified("password")) return next(); 
 
   this.password = await bcrypt.hash(this.password, 10);
 });
