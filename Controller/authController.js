@@ -33,7 +33,7 @@ export const getMeController = async (req, res, next) => {
 
   if (!token) {
     return res.status(401).json({
-      message: "You are not logged in - token not found or token expired",
+      message: "You are not logged in - token not found or token expired  ",
       isAuthenticated: false,
     });
   }
