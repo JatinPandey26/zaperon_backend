@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 import router from "./Routes/auth.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-
+import bodyParser from "body-parser";
 const app = express();
 
 dotenv.config({
@@ -21,9 +21,13 @@ app.use(
   })
 );
 app.use(express.json());
-
-app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+);
+app.use(cookieParser());
 
 app.use("/api/v1/", router);
 

@@ -27,27 +27,7 @@ export const RegisterController = async (req, res, next) => {
   sendToken(user, "Welcome ", res);
 };
 
-export const LoginController = async (req, res, next) => {
-  const { email, password } = req.body;
-  console.log(email);
-  const user = await User.findOne({
-    email: email,
-  });
-  if (!user) {
-    return res.status(404).json({
-      message: "User not found",
-    });
-  }
-  const isMatch = await user.comparePassword(password);
 
-  if (!isMatch) {
-    return res.status(401).json({
-      message: "Invalid credentials",
-    });
-  }
-
-  sendToken(user, "Welcome back", res);
-};
 
 export const getMeController = async (req, res, next) => {
   const { token } = req.cookies;
