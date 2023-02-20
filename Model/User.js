@@ -7,11 +7,14 @@ const UserSchema = new mongoose.Schema({
   email: { type: String, required: true, validate: validator.isEmail },
   password: { type: String, required: true },
   createdAt: { type: Date, default: Date.now },
-  tokenTimeoutInMilliseconds: { type: Number, default: 1 * 24 * 60 * 60 * 1000 },
+  tokenTimeoutInMilliseconds: {
+    type: Number,
+    default: process.env.TOKEN_TIMEOUT_IN_MILLISECONDS,
+  },
 });
 
-UserSchema.pre("save", async function (next) { 
-  if (!this.isModified("password")) return next(); 
+UserSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) return next();
 
   this.password = await bcrypt.hash(this.password, 10);
 });
