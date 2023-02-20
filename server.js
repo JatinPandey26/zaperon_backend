@@ -33,7 +33,7 @@ connect();
 app.use("/api/v1/", router);
 
 app.use("/", (req, res) => {
-  res.status(200).json({ message: "Hello User" });
+  res.status(200).json({ message: "Hello User!" });
 });
 app.listen(5000, () => {
   console.log("Example app listening on port 5000");
