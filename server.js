@@ -19,13 +19,15 @@ app.use(
   })
 );
 app.use(cookieParser());
-app.use(
-  cors({
-    origin: process.env.FRONTEND_URL,
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE"],
-  })
-);
+app.use(cors());
+
+// app.use(
+//   cors({
+//     origin: process.env.FRONTEND_URL,
+//     credentials: true,
+//     methods: ["GET", "POST", "PUT", "DELETE"],
+//   })
+// );
 
 app.use(function (req, res, next) {
   // res.header("Access-Control-Allow-Origin", "*");
@@ -41,9 +43,6 @@ connect();
 
 app.use("/api/v1/", router);
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
 
 app.listen(5000, () => {
   console.log("Example app listening on port 5000");
