@@ -3,7 +3,7 @@ import {
   getMeController,
   isAuthenticated,
   RegisterController,
-} from "../Controller/authController.js"; 
+} from "../Controller/authController.js";
 
 const router = express.Router();
 

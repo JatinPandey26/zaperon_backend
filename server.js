@@ -11,8 +11,14 @@ dotenv.config({
   path: "./config/config.env",
 });
 
-connect();
-
+// using middlewares
+app.use(express.json());
+app.use(
+  express.urlencoded({
+    extended: true,
+  })
+);
+app.use(cookieParser());
 app.use(
   cors({
     origin: process.env.FRONTEND_URL,
@@ -20,16 +26,18 @@ app.use(
     methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
-app.use(express.json());
-app.use(express.urlencoded());
-app.use(express.urlencoded({ extended: true }));
-app.use(
-  bodyParser.urlencoded({
-    extended: true,
-  })
-);
-app.use(bodyParser.json());
-app.use(cookieParser());
+
+app.use(function (req, res, next) {
+  // res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+
+  next();
+});
+
+connect();
 
 app.use("/api/v1/", router);
 
@@ -37,6 +45,7 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-app.listen(4000, () => {
-  console.log("Example app listening on port 4000!");
+app.listen(5000, () => {
+  console.log("Example app listening on port 5000");
 });
+  
