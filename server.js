@@ -43,8 +43,9 @@ connect();
 
 app.use("/api/v1/", router);
 
-
+app.use("/", (req, res) => {
+  res.status(200).json({'<h1>Hello</h1>'});
+});
 app.listen(5000, () => {
   console.log("Example app listening on port 5000");
 });
-  
