@@ -52,6 +52,10 @@ export const getMeController = async (req, res, next) => {
     });
   }
 
+  if(user.tokenTimeout < Date.now() - user.createdAt) {
+    
+  }
+
   req.user = user;
 
   return res.status(200).json({
