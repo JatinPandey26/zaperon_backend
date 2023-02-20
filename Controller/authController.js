@@ -65,28 +65,6 @@ export const getMeController = async (req, res, next) => {
   return res.status(200).json({
     message: "logged in",
     isAuthenticated: true,
+    user: user,
   });
-};
-
-// middleware
-export const isAuthenticated = async (req, res, next) => {
-  const { token } = req.cookies;
-  console.log(token);
-  if (!token) {
-    return res.status(401).json({
-      message: "You are not logged in",
-    });
-  }
-
-  const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-  const user = await User.findById(decoded.id);
-
-  if (!user) {
-    return res.status(401).json({
-      message: "You are not logged in",
-    });
-  }
-
-  next();
 };

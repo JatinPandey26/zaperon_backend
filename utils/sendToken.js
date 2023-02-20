@@ -11,6 +11,5 @@ export const sendToken = async (user, message, res) => {
     success: true,
     message,
     user,
-    token
   });
 };
