@@ -7,7 +7,7 @@ const UserSchema = new mongoose.Schema({
   email: { type: String, required: true, validate: validator.isEmail },
   password: { type: String, required: true },
   createdAt: { type: Date, default: Date.now },
-  tokenTimeout: { type: Number, default: 1 * 24 * 60 * 60 * 1000 },
+  tokenTimeoutInMilliseconds: { type: Number, default: 1 * 24 * 60 * 60 * 1000 },
 });
 
 UserSchema.pre("save", async function (next) { 

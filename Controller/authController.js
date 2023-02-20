@@ -27,16 +27,13 @@ export const RegisterController = async (req, res, next) => {
   sendToken(user, "Welcome ", res);
 };
 
-
-
 export const getMeController = async (req, res, next) => {
   const { token } = req.cookies;
   console.log(token);
 
   if (!token) {
     return res.status(401).json({
-      message: "You are not logged in token not found",
-
+      message: "You are not logged in - token not found or token expired",
       isAuthenticated: false,
     });
   }
@@ -54,11 +51,15 @@ export const getMeController = async (req, res, next) => {
 
   const timeSpent = new Date().getTime() - user.createdAt.getTime();
 
+  if (user.tokenTimeoutInMilliseconds < timeSpent) {
+    await user.delete();
+    return res.clearCookie("token").status(401).json({
+      message: "You are not logged in - token not found or token expired",
 
-  console.log(user.tokenTimeout , timeSpent);
-  if(user.tokenTimeout < timeSpent) {
+      isAuthenticated: false,
+    });
   }
- 
+
   req.user = user;
 
   return res.status(200).json({
