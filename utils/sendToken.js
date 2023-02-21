@@ -8,7 +8,7 @@ export const sendToken = async (user, message, res) => {
   };
 
   res
-    .status(200)
+    .status(201)
     .cookie("token", token, options)
     .json({
       success: true,

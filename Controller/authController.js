@@ -15,7 +15,7 @@ export const RegisterController = async (req, res, next) => {
     email: email,
   });
   if (user) {
-    return res.status(400).json({
+    return res.status(409).json({
       message: "User already exists",
     });
   }
@@ -42,7 +42,7 @@ export const getMeController = async (req, res, next) => {
   const user = await User.findById(decoded._id);
 
   if (!user) {
-    return res.status(401).json({
+    return res.status(404).json({
       message: "not logged in",
       isAuthenticated: false,
     });
@@ -83,7 +83,7 @@ export const logoutController = async (req, res, next) => {
   const user = await User.findById(decoded._id);
 
   if (!user) {
-    return res.status(401).json({
+    return res.status(404).json({
       message: "not logged in",
       isAuthenticated: false,
     });
