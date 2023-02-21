@@ -12,8 +12,8 @@ export const sendToken = async (user, message, res) => {
     .cookie("token", token, options)
     .json({
       success: true,
-      message : message,
-      user : user,
-      username: user.username.split("@")[0],
+      message: message,
+      user: user,
+      username: user.email.split("@")[0],
     });
 };
