@@ -29,7 +29,6 @@ export const RegisterController = async (req, res, next) => {
 
 export const getMeController = async (req, res, next) => {
   const { token } = req.cookies;
-  console.log(token);
 
   if (!token) {
     return res.status(401).json({
