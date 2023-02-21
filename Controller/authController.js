@@ -67,3 +67,34 @@ export const getMeController = async (req, res, next) => {
     username: user.email.split("@")[0],
   });
 };
+
+export const logoutController = async (req, res, next) => {
+  const { token } = req.cookies;
+
+  if (!token) {
+    return res.status(401).json({
+      message: "You are not logged in - token not found or token expired  ",
+      isAuthenticated: false,
+    });
+  }
+
+  const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+  const user = await User.findById(decoded._id);
+
+  if (!user) {
+    return res.status(401).json({
+      message: "not logged in",
+      isAuthenticated: false,
+    });
+  }
+
+  await user.delete();
+
+  req.user = null;
+
+  return res.clearCookie("token").status(200).json({
+    message: "logged out",
+    isAuthenticated: false,
+  });
+};
