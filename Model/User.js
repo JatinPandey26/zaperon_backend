@@ -4,7 +4,12 @@ import jwt from "jsonwebtoken";
 import validator from "validator";
 
 const UserSchema = new mongoose.Schema({
-  email: { type: String, required: true, validate: validator.isEmail },
+  email: { type: String, required: true, validate:{
+    validator: validator.isEmail,
+    message: '{VALUE} is not a valid email',
+    isAsync: false
+  }
+ },
   password: { type: String, required: true },
   createdAt: { type: Date, default: Date.now },
   tokenTimeoutInMilliseconds: { type: Number, default: 1 * 24 * 60 * 60 * 1000 },
