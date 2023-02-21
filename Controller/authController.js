@@ -24,7 +24,7 @@ export const RegisterController = async (req, res, next) => {
     password,
   });
 
-  sendToken(user, "Welcome ", res);
+  sendToken(user, "Welcome " + user.email.split("@")[0], res);
 };
 
 export const getMeController = async (req, res, next) => {

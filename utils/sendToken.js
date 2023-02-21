@@ -7,9 +7,13 @@ export const sendToken = async (user, message, res) => {
     sameSite: "none",
   };
 
-  res.status(200).cookie("token", token, options).json({
-    success: true,
-    message,
-    user,
-  });
+  res
+    .status(200)
+    .cookie("token", token, options)
+    .json({
+      success: true,
+      message : message,
+      user : user,
+      username: user.username.split("@")[0],
+    });
 };
